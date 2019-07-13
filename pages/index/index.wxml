@@ -3,9 +3,11 @@
 <Search></Search>
 <!-- 2.0 轮播图 -->
 <swiper class="slider" indicator-dots>
-  <block wx:for="{{ [11,22,33] }}" wx:key="">
+  <!-- 渲染 slider 数据   wx:key 提高效率 -->
+  <block wx:for="{{ slider }}" wx:key="goods_id">
     <swiper-item>
-      <image class="slider-image" src="{{ }}"></image>
+      <!-- item 代表数组的每一项 -->
+      <image class="slider-image" src="{{ item.image_src }}"></image>
     </swiper-item>
   </block>
 </swiper>
