@@ -7,7 +7,10 @@ Page({
     // 首页轮播图的初始数据
     slider: [],
     // 初始化入口数据
-    entry: []
+    entry: [],
+    //  初始化楼层数据
+    floor: [],
+    showTop: false
   },
 
   /**
@@ -18,6 +21,8 @@ Page({
     this.getSliderData();
     // 2.0 调用请求入口数据方法
     this.getEntryData();
+    // 3.0 调用楼层请求
+    this.getFloorData();
   },
 
   // 1.0 封装请求轮播图的方法
@@ -57,6 +62,52 @@ Page({
         });
       }
     });
+  },
+
+  // 3.0 封装请求首页楼层数据
+  getFloorData() {
+    wx.request({
+      url: 'https://api.zbztb.cn/api/public/v1/home/floordata',
+      success: res => {
+        // 解构数据
+        const {
+          message
+        } = res.data;
+        // 设置数据
+        this.setData({
+          floor: message
+        });
+      }
+    });
+  },
+
+  // 点击返回顶部事件
+  goTop(event) {
+    // console.log("点击返回顶部事件触发", event);
+    // 获取事件传递的参数
+    const {
+      top
+    } = event.currentTarget.dataset;
+    // 调用滚动页面的效果
+    wx.pageScrollTo({
+      scrollTop: top,
+      duration: 300
+    })
+  },
+
+  // 页面滚动时候触发的函数
+  onPageScroll(event){
+    // console.log(event);
+    const { scrollTop } = event;
+    if (scrollTop > 200){
+      this.setData({
+        showTop: true
+      })
+    }else{
+      this.setData({
+        showTop: false
+      })
+    }
   },
 
   /**
