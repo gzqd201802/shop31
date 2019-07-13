@@ -1,21 +1,8 @@
 /* 1.0 搜索框 */
-.search{
-  background-color: #eb4450;
-  padding: 20rpx 16rpx;
-}
-.search-in{
-  background-color: #fff;
-  border-radius: 5rpx;
-  height: 60rpx;
-  /* 伸缩盒显示模式 */
-  display: flex;
-  /* 主轴对齐 */
-  justify-content: center;
-  /* 交叉轴对齐 */
-  align-items: center;
-}
-.search-text{
-  color:#ccc;
-  font-size: 28rpx;
-  margin-left: 10rpx;
+
+/* 2.0 轮播图 */
+.slider,
+.slider-image{
+  width: 100%;
+  height: 340rpx;
 }

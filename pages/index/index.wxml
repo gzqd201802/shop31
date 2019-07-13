@@ -1,7 +1,11 @@
 <!-- 1.0 搜索框 -->
 <!-- 1.1 调用搜索框组件 -->
 <Search></Search>
-
-
-
-
+<!-- 2.0 轮播图 -->
+<swiper class="slider" indicator-dots>
+  <block wx:for="{{ [11,22,33] }}" wx:key="">
+    <swiper-item>
+      <image class="slider-image" src="{{ }}"></image>
+    </swiper-item>
+  </block>
+</swiper>
