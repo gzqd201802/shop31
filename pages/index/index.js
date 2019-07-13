@@ -5,7 +5,9 @@ Page({
    */
   data: {
     // 首页轮播图的初始数据
-    slider: []
+    slider: [],
+    // 初始化入口数据
+    entry: []
   },
 
   /**
@@ -13,6 +15,13 @@ Page({
    */
   onLoad: function(options) {
     // 1.0 页面加载的时候，请求轮播图的数据
+    this.getSliderData();
+    // 2.0 调用请求入口数据方法
+    this.getEntryData();
+  },
+
+  // 1.0 封装请求轮播图的方法
+  getSliderData() {
     // wx.request 请求方法
     wx.request({
       // url 请求地址
@@ -28,6 +37,23 @@ Page({
         // 把 message 数据更新到页面 data 中
         this.setData({
           slider: message
+        });
+      }
+    });
+  },
+
+  // 2.0 封装请求首页入口数据
+  getEntryData() {
+    wx.request({
+      url: 'https://api.zbztb.cn/api/public/v1/home/catitems',
+      success: res => {
+        // 解构数据
+        const {
+          message
+        } = res.data;
+        // 设置数据
+        this.setData({
+          entry: message
         });
       }
     });
