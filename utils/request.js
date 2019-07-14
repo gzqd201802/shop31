@@ -21,6 +21,8 @@ const request = (params) => {
   return new Promise((resolve, reject) => {
     // 2.0 发送请求
     wx.request({
+      // 直接把所有的参数解构
+      ...params,
       // 2.1 !! url 请求地址 = 基本路径 + 传入的 url
       url: baseURL + params.url,
       // 2.2 请求成功的回调函数
