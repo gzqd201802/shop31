@@ -18,10 +18,14 @@
       </view>
       <view class="classify-right-list">
         <block wx:for="{{ item.children }}" wx:key="" wx:for-item="item2" wx:for-index="index2">
-          <view class="classify-right-item">
+          <navigator 
+            url="/pages/goods_list/goods_list?keyword={{ item2.cat_name }}" 
+            hover-class="none" 
+            class="classify-right-item"
+          >
             <image class="classify-right-item-image" src="{{ item2.cat_icon }}"></image>
             <view class="classify-right-item-text">{{ item2.cat_name }}</view>
-          </view>
+          </navigator>
         </block>
       </view>
     </block>
