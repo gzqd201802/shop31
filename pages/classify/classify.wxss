@@ -1,1 +1,71 @@
-/* pages/classify/classify.wxss */
+/* 2.0 分类总分区 */
+
+.classify {
+  display: flex;
+  position: absolute;
+  top: 100rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.classify-left {
+  background-color: #f4f4f4;
+  width: 200rpx;
+  flex-shrink: 0;
+}
+
+.classify-left-item {
+  line-height: 100rpx;
+  text-align: center;
+  border-bottom: 1rpx solid #ccc;
+}
+
+/* 同时选中 classify-left-item 和 active 两个类名 */
+
+.classify-left-item.active {
+  background-color: #fff;
+  position: relative;
+}
+
+.classify-left-item.active::after {
+  content: "";
+  position: absolute;
+  top: 20rpx;
+  bottom: 20rpx;
+  left: 0;
+  width: 10rpx;
+  background-color: #eb4450;
+}
+
+.classify-right {
+  flex: 1;
+  /* 通过样式显示超出显示滚动条会比较卡顿 */
+  /* overflow: auto; */
+}
+
+.classify-right-title {
+  text-align: center;
+  margin: 50rpx 0;
+}
+
+.classify-right-title::before, .classify-right-title::after {
+  content: "/";
+  color: #ddd;
+  margin: 0 30rpx;
+}
+
+.classify-right-list{
+  display: flex;
+  flex-wrap: wrap;
+}
+.classify-right-item{
+  width: 33.33%;
+  text-align: center;
+  margin: 30rpx 0;
+}
+.classify-right-item-image {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 10rpx;
+}

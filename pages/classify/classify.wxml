@@ -1,2 +1,28 @@
-<!--pages/classify/classify.wxml-->
-<text>pages/classify/classify.wxml</text>
+<!-- 1.0 使用搜索框组件 -->
+<Search></Search>
+<!-- 2.0 分类总分区 -->
+<view class="classify">
+  <!-- 分类左边 -->
+
+  <scroll-view scroll-y class="classify-left">
+    <block wx:for="{{ classify }}" wx:key="cat_id">
+      <view class="classify-left-item {{ index === activeIndex ? 'active' : '' }}">{{ item.cat_name }}</view>
+    </block>
+  </scroll-view>
+
+  <!-- 分类右边 -->
+  <scroll-view scroll-y class="classify-right">
+    <view class="classify-right-title">
+      电视
+    </view>
+    <view class="classify-right-list">
+      <block wx:for="{{ 20 }}" wx:key="">
+        <view class="classify-right-item">
+          <image class="classify-right-item-image" src=""></image>
+          <view class="classify-right-item-text">曲面电视{{index}}</view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+
+</view>
