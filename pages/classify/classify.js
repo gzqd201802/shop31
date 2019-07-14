@@ -9,15 +9,28 @@ Page({
     activeIndex: 0,
     // 分类总数据
     classify: [],
-
+    // 右侧二级分类
+    subClassify: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log("onLoad--监听页面加载");
     this.getClassifyData();
+  },
+  // 切换选项卡的事件
+  changeTab(event){
+    // 解构索引值
+    const { index } = event.currentTarget.dataset;
+    // 设置数据，更新视图
+    this.setData({
+      // 左侧选中状态
+      activeIndex: index,
+      // 右侧二级分类数据 - 可以在总数据中,通过索引值进行重新的绑定
+      subClassify: this.data.classify[index].children
+    });
   },
   // 
   getClassifyData() {
@@ -37,7 +50,8 @@ Page({
         } = res.data;
         // 设置页面数据，更新视图
         this.setData({
-          classify: message
+          classify: message,
+          subClassify: message[this.data.activeIndex].children
         })
       },
       // 请求完成的时候
@@ -51,49 +65,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     console.log("onReady--监听页面初次渲染完成");
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     console.log("onShow--监听页面显示");
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     console.log("onHide--监听页面隐藏");
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     console.log("onUnload--监听页面卸载");
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
