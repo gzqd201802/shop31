@@ -1,6 +1,8 @@
-// pages/classify/classify.js
-Page({
+// 在 Page() 入口函数前，导入 request 模块，注意这里的路径
+const { request } = require("../../utils/request.js")
 
+// Page() 页面入口函数
+Page({
   /**
    * 页面的初始数据
    */
@@ -21,9 +23,11 @@ Page({
     this.getClassifyData();
   },
   // 切换选项卡的事件
-  changeTab(event){
+  changeTab(event) {
     // 解构索引值
-    const { index } = event.currentTarget.dataset;
+    const {
+      index
+    } = event.currentTarget.dataset;
     // 设置数据，更新视图
     this.setData({
       // 左侧选中状态
@@ -34,32 +38,17 @@ Page({
   },
   // 
   getClassifyData() {
-    // 1.0 在发送请求之前，先显示加载框
-    wx.showLoading({
-      title: '疯狂加载中...',
+    // console.log(request);
+    // 调用自己封装的 request 方法，更简单的发送请求
+    request({ url: "categories" })
+    // 成功时候执行的回调函数
+    .then(res=>{
+      // 设置页面数据
+      this.setData({
+        classify: res,
+        subClassify: res[this.data.activeIndex].children
+      });
     });
-    // 2.0 发送请求
-    wx.request({
-      // 2.1 url 请求地址
-      url: 'https://api.zbztb.cn/api/public/v1/categories',
-      // 2.2 请求成功的回调函数
-      success: res => {
-        // 解构返回结果
-        const {
-          message
-        } = res.data;
-        // 设置页面数据，更新视图
-        this.setData({
-          classify: message,
-          subClassify: message[this.data.activeIndex].children
-        })
-      },
-      // 请求完成的时候
-      complete: res => {
-        // 3.0 隐藏加载框
-        wx.hideLoading();
-      }
-    })
   },
 
   /**
