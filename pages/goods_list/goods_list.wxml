@@ -1,9 +1,10 @@
-<view class="search">
+<!-- 1.0 跳转页面的第一种方式 -->
+<navigator url="/pages/search/search?keyword={{ keyword }}" class="search">
   <view class="search-in">
     <icon class="search-icon" size="32rpx" type="search"></icon>
     <text class="search-text">{{ keyword }}</text>
   </view>
-</view>
+</navigator>
 <!-- 2.0 tab 栏 -->
 <view class="tabs">
   <view class="tabs-item {{ activeIndex === 0 ? 'active' : '' }}">综合</view>
@@ -13,7 +14,8 @@
 <!-- 3.0 商品列表 -->
 <view class="goods-list">
   <block wx:for="{{ goods }}" wx:key="goods_id">
-    <view class="goods-item">
+    <!-- 2.0 跳转页面的第二种方式，通过触发事件跳转 -->
+    <view bindtap="goToDetail" data-id="{{ item.goods_id }}" class="goods-item">
       <image src="{{ item.goods_small_logo || '/images/defalut.png' }}" class="goods-item-image"></image>
       <view class="goods-item-info">
         <view class="goods-item-info-title">{{ item.goods_name }}</view>

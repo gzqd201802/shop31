@@ -87,7 +87,7 @@ Page({
   onPullDownRefresh: function() {
     console.log("用户下拉刷新事件触发");
     // 在事件内部，重新请求数据
-    // 页码重新变成第一页，goods 数据清空
+    // 页码重新变成第一页，goods 数据清空, hasMore 变成 true
     let {
       pagenum,
       cid,
@@ -97,16 +97,19 @@ Page({
       hasMore
     } = this.data;
 
+    // 重新把数据初始化
     pagenum = 1;
     goods = [];
     hasMore = true;
 
+    // 更新页面数据
     this.setData({
       pagenum,
       goods,
       hasMore
     });
 
+    // 重新发起请求
     this.getListData({
       query: keyword,
       cid,
@@ -158,6 +161,16 @@ Page({
         // 停止当前页面下拉刷新动画效果 -- 手机中下拉后，动画会持续，需要调用方法停止
         wx.stopPullDownRefresh();
       })
+  },
+  // 点击跳转详情页事件
+  goToDetail(event){
+    // 提取商品 id
+    const { id } = event.currentTarget.dataset;
+    // 在跳转页面的时候把 id 传递过去
+    // console.log(id);
+    wx.navigateTo({
+      url: '/pages/goods_detail/goods_detail?goods_id=' + id,
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
