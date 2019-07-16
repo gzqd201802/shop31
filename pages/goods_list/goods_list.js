@@ -81,6 +81,41 @@ Page({
     });
   },
 
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    console.log("用户下拉刷新事件触发");
+    // 在事件内部，重新请求数据
+    // 页码重新变成第一页，goods 数据清空
+    let {
+      pagenum,
+      cid,
+      pagesize,
+      keyword,
+      goods,
+      hasMore
+    } = this.data;
+
+    pagenum = 1;
+    goods = [];
+    hasMore = true;
+
+    this.setData({
+      pagenum,
+      goods,
+      hasMore
+    });
+
+    this.getListData({
+      query: keyword,
+      cid,
+      pagenum,
+      pagesize
+    });
+
+  },
+
   // 获取列表数据
   getListData(params) {
     const {
@@ -110,7 +145,7 @@ Page({
           wx.showToast({
             title: '没有更多数据了',
             // 取消掉提示图标
-            icon:'none'
+            icon: 'none'
           });
         }
 
@@ -120,6 +155,8 @@ Page({
           goods: [...this.data.goods, ...goods]
         });
 
+        // 停止当前页面下拉刷新动画效果 -- 手机中下拉后，动画会持续，需要调用方法停止
+        wx.stopPullDownRefresh();
       })
   },
   /**
@@ -150,12 +187,7 @@ Page({
     console.log("onUnload");
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
 
-  },
 
 
   /**
