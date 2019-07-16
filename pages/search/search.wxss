@@ -49,3 +49,21 @@
   padding: 10px 25rpx;
   margin: 0 20rpx 20rpx 0;
 }
+
+/* 3.0 搜索提示 */
+.search-tips{
+  position: absolute;
+  left:0;
+  right: 0;
+  top:100rpx;
+  bottom: 0;
+  background-color: #f2f2f2;
+}
+.search-tips-item{
+  border-bottom: 1rpx solid #ddd;
+  line-height: 60rpx;
+  padding: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

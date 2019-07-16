@@ -19,3 +19,9 @@
     </block>
   </view>
 </view>
+<!-- 3.0 搜索提示 -->
+<scroll-view scroll-y class="search-tips" hidden="{{ keyword.length === 0 }}">
+  <block wx:for="{{ tipsList }}" wx:key="goods_id">
+    <view class="search-tips-item">{{ item.goods_name }}</view>
+  </block>
+</scroll-view>

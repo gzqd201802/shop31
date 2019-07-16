@@ -1,3 +1,8 @@
+// 导入 request 方法
+const {
+  request
+} = require('../../utils/request.js')
+
 // pages/search/search.js
 Page({
 
@@ -7,7 +12,9 @@ Page({
   data: {
     keyword: "",
     // 搜索历史列表
-    historyList: []
+    historyList: [],
+    // 搜索提示列表
+    tipsList: []
   },
 
   /**
@@ -27,7 +34,28 @@ Page({
     const {
       value
     } = event.detail;
+    this.setData({
+      keyword: value
+    })
     // console.log(value);
+    // 当用户输入内容发生改变的时候，获取搜索提示
+    this.getSearchTipsData(value);
+  },
+
+  // 获取搜索提示
+  getSearchTipsData(query) {
+    request({
+        url: 'goods/qsearch',
+        data: {
+          query
+        }
+      })
+      .then(res => {
+        console.log(res);
+        this.setData({
+          tipsList: res || []
+        })
+      })
   },
 
   // bindconfirm - 当用户点击键盘右下角搜索按钮的时候触发
