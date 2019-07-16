@@ -11,11 +11,11 @@
 <view class="search-history">
   <view class="search-history-title">
     <text class="search-history-title-text">历史搜索</text>
-    <icon class="search-history-title-icon" type="clear" size="32rpx"></icon>
+    <icon bindtap="removeHistory" class="search-history-title-icon" type="clear" size="32rpx"></icon>
   </view>
   <view class="search-history-list">
-    <block wx:for="{{ 8 }}" wx:key="">
-      <view class="search-history-item">小米{{index}}</view>
+    <block wx:for="{{ historyList }}" wx:key="*this">
+      <view class="search-history-item">{{ item }}</view>
     </block>
   </view>
 </view>
