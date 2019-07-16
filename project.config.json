@@ -15,7 +15,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.7.4",
 	"appid": "wxfb52f2d7b2f6123a",
-	"projectname": "shop",
+	"projectname": "shop31",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -53,7 +53,7 @@
 					"id": 1,
 					"name": "商品列表页",
 					"pathName": "pages/goods_list/goods_list",
-					"query": "keyword=TCL",
+					"query": "keyword=TCL&cid=10",
 					"scene": null
 				}
 			]

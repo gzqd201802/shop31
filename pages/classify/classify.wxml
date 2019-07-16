@@ -19,7 +19,7 @@
       <view class="classify-right-list">
         <block wx:for="{{ item.children }}" wx:key="" wx:for-item="item2" wx:for-index="index2">
           <navigator 
-            url="/pages/goods_list/goods_list?keyword={{ item2.cat_name }}" 
+            url="/pages/goods_list/goods_list?keyword={{ item2.cat_name }}&cid={{ item2.cat_id }}" 
             hover-class="none" 
             class="classify-right-item"
           >
