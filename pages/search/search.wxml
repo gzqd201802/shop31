@@ -1,0 +1,21 @@
+<!-- 1.0 跳转页面的第一种方式 -->
+<view class="search">
+  <view class="search-in">
+    <icon class="search-icon" size="32rpx" type="search"></icon>
+    <!-- 把弹起键盘右下角按键改成搜索 -->
+    <input bindinput="inputChange" bindconfirm="inputSumbit" class="search-text" value="{{ keyword }}" confirm-type="search" placeholder="请输入你想要的商品"></input>
+    <button class="search-button" size="mini">取消</button>
+  </view>
+</view>
+<!-- 2.0 搜索历史 -->
+<view class="search-history">
+  <view class="search-history-title">
+    <text class="search-history-title-text">历史搜索</text>
+    <icon class="search-history-title-icon" type="clear" size="32rpx"></icon>
+  </view>
+  <view class="search-history-list">
+    <block wx:for="{{ 8 }}" wx:key="">
+      <view class="search-history-item">小米{{index}}</view>
+    </block>
+  </view>
+</view>
