@@ -1,1 +1,83 @@
-/* pages/goods_detail/goods_detail.wxss */
+/* 1.0 轮播图 */
+
+.slider, .slider-image {
+  width: 100%;
+  height: 750rpx;
+}
+
+.goods-info {
+  padding: 20rpx;
+}
+
+.goods-info-price {
+  color: #eb4450;
+  font-size: 30rpx;
+}
+
+.goods-info-main {
+  display: flex;
+  margin: 20rpx 0;
+}
+
+.goods-info-main-left {
+  flex: 1;
+  padding-right: 20rpx;
+}
+
+.goods-info-main-right {
+  width: 140rpx;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ccc;
+  font-size: 24rpx;
+  border-left: 1rpx solid #ddd;
+  flex-direction: column;
+}
+
+.goods-info-bottom{
+  color:#ccc;
+  font-size: 26rpx;
+}
+
+.goods-detail-image-rich{
+  font-size: 0;
+}
+/* 4.0 底部固定栏 */
+.fixed-bar{
+  position: fixed;
+  left:0;
+  right: 0;
+  height: 100rpx;
+  bottom: 0;
+  background-color: #fff;
+  display: flex;
+}
+.fixed-bar-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150rpx;
+}
+.fixed-bar-group-icon{
+  font-size:40rpx;
+  color:#999;
+}
+.fixed-bar-group-text{
+  font-size: 24rpx;
+  color:#666;
+}
+
+.fixed-bar-button{
+  flex: 1;
+  background-color: #f4b73f;
+  color:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fixed-bar-button:last-child{
+  background-color: #eb4450;
+}
