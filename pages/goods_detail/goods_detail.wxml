@@ -33,14 +33,16 @@
 <!-- 4.0 底部固定栏 -->
 <view class="fixed-bar">
   <view class="fixed-bar-group">
+    <button class="fixed-bar-group-contact" open-type="contact">客服功能</button>
     <view class="fixed-bar-group-icon iconfont icon-kefu"></view>
     <view class="fixed-bar-group-text">联系客服</view>
   </view>
-  <view class="fixed-bar-group">
+  <!-- 购物车跳转要设置 open-type="switchTab" -->
+  <navigator url="/pages/cart/cart" open-type="switchTab" class="fixed-bar-group">
     <view class="fixed-bar-group-icon iconfont icon-gouwuche"></view>
     <view class="fixed-bar-group-text">购物车</view>
-  </view>
-  <view class="fixed-bar-button">
+  </navigator>
+  <view class="fixed-bar-button" bindtap="addToCart">
     加入购物车
   </view>
   <view class="fixed-bar-button">

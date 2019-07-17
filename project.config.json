@@ -67,7 +67,7 @@
 					"id": 3,
 					"name": "商品详情页",
 					"pathName": "pages/goods_detail/goods_detail",
-					"query": "goods_id=57425",
+					"query": "goods_id=57427",
 					"scene": null
 				}
 			]
