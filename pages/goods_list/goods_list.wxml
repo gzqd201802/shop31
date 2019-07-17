@@ -1,5 +1,5 @@
 <!-- 1.0 跳转页面的第一种方式 -->
-<navigator url="/pages/search/search?keyword={{ keyword }}" class="search">
+<navigator open-type="redirect" url="/pages/search/search?keyword={{ keyword }}" class="search">
   <view class="search-in">
     <icon class="search-icon" size="32rpx" type="search"></icon>
     <text class="search-text">{{ keyword }}</text>

@@ -64,7 +64,15 @@ Page({
     } = this.data;
 
     // 判断是否没有更多数据了，直接 return
-    if (!hasMore) return;
+    if (!hasMore) {
+      // 没有数据显示消息提示框
+      wx.showToast({
+        title: '没有更多数据了',
+        // 取消掉提示图标
+        icon: 'none'
+      });
+      return;
+    };
 
     // 页数++，加1
     pagenum++;
@@ -124,7 +132,10 @@ Page({
     const {
       pagesize
     } = this.data;
-
+    // 判断 cid 是否为空，如果为空，请求的参数就没有 cid
+    if (!params.cid){
+      delete params.cid;
+    }
     // 还有数据的时候，才继续发起请求
     request({
         url: "goods/search",
@@ -144,12 +155,7 @@ Page({
           this.setData({
             hasMore: false
           });
-          // 没有数据显示消息提示框
-          wx.showToast({
-            title: '没有更多数据了',
-            // 取消掉提示图标
-            icon: 'none'
-          });
+
         }
 
         // 更新列表数据，数组拼接
@@ -163,9 +169,11 @@ Page({
       })
   },
   // 点击跳转详情页事件
-  goToDetail(event){
+  goToDetail(event) {
     // 提取商品 id
-    const { id } = event.currentTarget.dataset;
+    const {
+      id
+    } = event.currentTarget.dataset;
     // 在跳转页面的时候把 id 传递过去
     // console.log(id);
     wx.navigateTo({

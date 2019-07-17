@@ -3,7 +3,16 @@
   <view class="search-in">
     <icon class="search-icon" size="32rpx" type="search"></icon>
     <!-- 把弹起键盘右下角按键改成搜索 -->
-    <input bindinput="inputChange" bindconfirm="inputSumbit" class="search-text" value="{{ keyword }}" confirm-type="search" placeholder="请输入你想要的商品"></input>
+    <input 
+      bindinput="inputChange" 
+      bindconfirm="inputSumbit" 
+      bindfocus="inputFocus" 
+      bindblur="inputBlur" 
+      class="search-text" 
+      value="{{ keyword }}" 
+      confirm-type="search" 
+      placeholder="请输入你想要的商品"
+    ></input>
     <button class="search-button" size="mini">取消</button>
   </view>
 </view>
@@ -15,13 +24,13 @@
   </view>
   <view class="search-history-list">
     <block wx:for="{{ historyList }}" wx:key="*this">
-      <view class="search-history-item">{{ item }}</view>
+      <navigator open-type="redirect" url="/pages/goods_list/goods_list?keyword={{ item }}" class="search-history-item">{{ item }}</navigator>
     </block>
   </view>
 </view>
 <!-- 3.0 搜索提示 -->
-<scroll-view scroll-y class="search-tips" hidden="{{ keyword.length === 0 }}">
+<scroll-view scroll-y class="search-tips" hidden="{{ !showTips }}">
   <block wx:for="{{ tipsList }}" wx:key="goods_id">
-    <view class="search-tips-item">{{ item.goods_name }}</view>
+    <navigator url="/pages/goods_detail/goods_detail?goods_id={{ item.goods_id }}" class="search-tips-item">{{ item.goods_name }}</navigator>
   </block>
 </scroll-view>

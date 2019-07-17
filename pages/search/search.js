@@ -3,6 +3,9 @@ const {
   request
 } = require('../../utils/request.js')
 
+// 创建变量用于存放定时器
+let timer;
+
 // pages/search/search.js
 Page({
 
@@ -14,8 +17,11 @@ Page({
     // 搜索历史列表
     historyList: [],
     // 搜索提示列表
-    tipsList: []
+    tipsList: [],
+    // 是否显示搜索提示框
+    showTips: false
   },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -34,12 +40,32 @@ Page({
     const {
       value
     } = event.detail;
+
     this.setData({
       keyword: value
-    })
+    });
+
+    // 如果用户清空了输入的值
+    if (!value.trim()) {
+      // 隐藏提示盒子
+      this.setData({
+        showTips: false
+      });
+      // 减少发送空数据
+      return;
+    } else {
+      this.setData({
+        showTips: true
+      });
+    }
+    // 清空上一个定时器
+    clearTimeout(timer);
     // console.log(value);
-    // 当用户输入内容发生改变的时候，获取搜索提示
-    this.getSearchTipsData(value);
+    // 通过定时器节流
+    timer = setTimeout(() => {
+      // 当用户输入内容发生改变的时候，获取搜索提示
+      this.getSearchTipsData(value);
+    }, 500);
   },
 
   // 获取搜索提示
@@ -58,7 +84,7 @@ Page({
       })
   },
 
-  // bindconfirm - 当用户点击键盘右下角搜索按钮的时候触发
+  // bindconfirm="inputSumbit" - 当用户点击键盘右下角搜索按钮的时候触发
   inputSumbit(event) {
     const {
       value
@@ -88,7 +114,22 @@ Page({
     // });
     // 同步写法
     wx.setStorageSync('historyList', historyList);
-
+    // 按完成的时候也要跳转页面
+    wx.redirectTo({
+      url: '/pages/goods_list/goods_list?keyword=' + value,
+    });
+  },
+  // 获取焦点
+  inputFocus() {
+    this.setData({
+      showTips: true
+    });
+  },
+  // 获取焦点
+  inputBlur() {
+    this.setData({
+      showTips: false
+    });
   },
   // 点击叉叉移除搜索历史
   removeHistory() {
