@@ -72,6 +72,40 @@ Page({
       urls: this.data.big_pics // 需要预览的图片http链接列表
     });
   },
+
+  // 点击加入购物车按钮事件
+  addToCart() {
+    // 1.0 解构了 id,图片，名称，价格
+    const {
+      goods_id,
+      goods_small_logo,
+      goods_name,
+      goods_price
+    } = this.data.goods_all;
+    // 2.0 还有选中状态 和 商品数量也要注意
+    console.log(goods_id);
+    // 所有购物车商品信息
+    let cartList = wx.getStorageSync('cartList') || {};
+    // 当前的商品信息 - 如果当前商品从来没有添加过才创建新对象
+    let goodsItem = {
+      goods_id,
+      goods_small_logo,
+      goods_name,
+      goods_price,
+      selected: true,
+      count: 1
+    };
+    // 把 goods_id 作为键名称存放购物车总商品关键信息
+    cartList[goods_id] = goodsItem;
+
+
+    // 如果当前的商品已经在本地存储中有了，仅仅把数量 + 1
+
+    console.log(cartList);
+    // 调用写入本地存储的方法
+    wx.setStorageSync('cartList', cartList);
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
