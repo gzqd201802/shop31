@@ -81,6 +81,62 @@ Page({
       url: '/pages/goods_detail/goods_detail?goods_id=' + id,
     });
   },
+
+  countHandle(event) {
+    // console.log("计数器事件触发");
+    // 解构 id 和 num 数量
+    const {
+      id,
+      num
+    } = event.currentTarget.dataset;
+
+    // 获取页面的 cartList 数据
+    let {
+      cartList
+    } = this.data;
+
+    // 对数据进行加减操作
+    cartList[id].count += num;
+
+    // 判断数量如果是小于 1，提示用户是否删除商品
+    if (cartList[id].count < 1) {
+      console.log("询问是否删除商品");
+      wx.showModal({
+        title: '是否删除当前商品',
+        // 确认按钮的文字
+        confirmText: '删除',
+        // 颜色需要使用 #000 颜色
+        confirmColor: '#eb4450',
+        // 在点击按钮后的回调函数
+        success: res => {
+          // 点击了确认删除按钮
+          if (res.confirm) {
+            // 根据 id 名称删除数据
+            delete cartList[id];
+            // 点击了取消按钮
+          } else if (res.cancel) {
+            // 如果点击取消，数量变回 1
+            cartList[id].count = 1;
+          }
+          // 异步操作后应该也要更新数据
+          this.setCartListData(cartList);
+        }
+      })
+    } else {
+      // 更新数据
+      this.setCartListData(cartList);
+    }
+
+  },
+  setCartListData(cartList) {
+    // 更新界面
+    this.setData({
+      cartList
+    });
+
+    // 更新本地存储
+    wx.setStorageSync('cartList', cartList);
+  },
   /**
    * 生命周期函数--监听页面加载
    */
