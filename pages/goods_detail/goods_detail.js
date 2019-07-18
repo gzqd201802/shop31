@@ -46,9 +46,28 @@ Page({
         goods_id
       }
     }).then(res => {
-      // IOS 平台下不支持 webp 图片格式，需要通过正则表达式替换成普通 jpg
-      res.goods_introduce = res.goods_introduce.replace(/\?.+?webp/g, '');
-      // console.log(res.goods_introduce);
+      // 判断 goods_price 是否是数值整数，如果是整数，就添加 .00
+      let {
+        goods_price
+      } = res;
+      if (typeof goods_price === 'number' && parseInt(goods_price) === goods_price) {
+        res.goods_price = goods_price.toFixed(2);
+      }
+
+      // 获取系统信息
+      wx.getSystemInfo({
+        success: result => {
+          console.log(result.system.toLowerCase());
+          // "ios 10.0.1".indexOf('ios') >  包含字符串返回大于 -1 的索引值
+          // "ios 10.0.1".includes('ios')   包含字符串返回 布尔类型 true
+          if (result.system.toLowerCase().includes('ios')) {
+            // IOS 平台下不支持 webp 图片格式，需要通过正则表达式替换成普通 jpg
+            res.goods_introduce = res.goods_introduce.replace(/\?.+?webp/g, '');
+            console.log(res.goods_introduce);
+          }
+        },
+      })
+
       // 把返回值中图片进行处理，处理成预览大图时候使用的数组字符串格式
       const big_pics = res.pics.map((item, index) => {
         return item.pics_big
@@ -86,24 +105,32 @@ Page({
     console.log(goods_id);
     // 所有购物车商品信息
     let cartList = wx.getStorageSync('cartList') || {};
-    // 当前的商品信息 - 如果当前商品从来没有添加过才创建新对象
-    let goodsItem = {
-      goods_id,
-      goods_small_logo,
-      goods_name,
-      goods_price,
-      selected: true,
-      count: 1
-    };
-    // 把 goods_id 作为键名称存放购物车总商品关键信息
-    cartList[goods_id] = goodsItem;
+    // 判断本地存储的数据中是否包含当前商品，数量 +1
+    if (cartList[goods_id]) {
+      cartList[goods_id].count++;
+    } else {
+      // 当前的商品信息 - 如果当前商品从来没有添加过才创建新对象
+      let goodsItem = {
+        goods_id,
+        goods_small_logo,
+        goods_name,
+        goods_price,
+        selected: true,
+        count: 1
+      };
+      // 把 goods_id 作为键名称存放购物车总商品关键信息
+      cartList[goods_id] = goodsItem;
+    }
 
-
-    // 如果当前的商品已经在本地存储中有了，仅仅把数量 + 1
-
-    console.log(cartList);
     // 调用写入本地存储的方法
     wx.setStorageSync('cartList', cartList);
+
+    // 给用户提示添加成功，修改提示的时间，防止用户快速点击添加蒙版层
+    wx.showToast({
+      title: '添加成功',
+      duration: 500,
+      mask: true
+    });
 
   },
   /**
