@@ -35,6 +35,8 @@
         <!-- 购物车商品右边 -->
         <view class="cart-item-right">
           <!-- 商品信息 - 和之前列表的布局一样 -->
+          <!-- bindtap 代表冒泡事件 -->
+          <!-- catchtap 代表非冒泡事件 -->
           <view class="goods-item" catchtap="goToDetail" data-id="{{ item.goods_id }}">
             <image src="{{ item.goods_small_logo || '/images/defalut.png' }}" class="goods-item-image"></image>
             <view class="goods-item-info">

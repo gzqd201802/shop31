@@ -9,7 +9,8 @@ Page({
       userName: '',
       telNumber: '',
       addressInfo: ''
-    }
+    },
+    cartList: {}
   },
   // 调用收货地址功能
   chooseAddress() {
@@ -71,7 +72,15 @@ Page({
       }
     });
   },
-
+  // 点击跳转到详情页
+  goToDetail(event) {
+    const {
+      id
+    } = event.currentTarget.dataset;
+    wx.navigateTo({
+      url: '/pages/goods_detail/goods_detail?goods_id=' + id,
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -84,7 +93,8 @@ Page({
    */
   onShow: function() {
     this.setData({
-      address: wx.getStorageSync('address') || {}
+      address: wx.getStorageSync('address') || {},
+      cartList: wx.getStorageSync('cartList') || {},
     })
   },
 
