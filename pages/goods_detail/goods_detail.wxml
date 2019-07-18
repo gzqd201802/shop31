@@ -23,10 +23,11 @@
   </view>
 </view>
 <!-- 3.0 图片富文本展示 -->
-<!--  -->
+<view class="divider"></view>
 <view class="goods-detail-title">
   图片详情
 </view>
+<view class="divider"></view>
 <view class="goods-detail-image">
   <rich-text class="goods-detail-image-rich" nodes="{{ goods_all.goods_introduce }}"></rich-text>
 </view>

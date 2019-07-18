@@ -1,1 +1,137 @@
-/* pages/cart/cart.wxss */
+/* 1.0 选择收货地址 */
+
+.address {
+  padding: 20rpx;
+  border-bottom: 10rpx solid #eb4450;
+  min-height: 200rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.address-selected {
+  width: 100%;
+  line-height: 60rpx;
+}
+
+.address-selected-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.address-selected-head::after {
+  content: "";
+  display: block;
+  width: 20rpx;
+  height: 20rpx;
+  border-top: 5rpx solid #ccc;
+  border-right: 5rpx solid #ccc;
+  transform: translateX(-20rpx) rotate(45deg);
+}
+
+/* 购物车列表 */
+
+.cart-title {
+  height: 80rpx;
+  padding: 0 40rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ddd;
+}
+
+.cart-title-icon {
+  color: #666;
+}
+
+.cart-item {
+  display: flex;
+}
+
+.cart-item-left {
+  width: 100rpx;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eb4450;
+}
+
+.cart-item-right {
+  flex: 1;
+  position: relative;
+}
+
+/* 购物车的计数器 */
+
+.count-grounp {
+  display: flex;
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+  width: 180rpx;
+  height: 50rpx;
+}
+
+.count-grounp-btn {
+  border: 2rpx solid #666;
+  width: 50rpx;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.count-grounp-input {
+  text-align: center;
+}
+
+/* 3.0 底部固定栏 */
+
+.total {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+.total-select {
+  padding-left: 40rpx;
+  display: flex;
+  align-items: center;
+}
+
+.total-select-icon {
+  margin-right: 20rpx;
+}
+
+.total-price {
+  flex: 1;
+  padding: 20rpx;
+  text-align: right;
+}
+
+.total-price-number {
+  color: #eb4450;
+}
+
+.total-price-tips {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.total-account {
+  width: 30%;
+  height: 100rpx;
+  background-color: #eb4450;
+  color: #fff;
+  line-height: 100rpx;
+  text-align: center;
+}
