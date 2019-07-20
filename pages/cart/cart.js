@@ -1,3 +1,7 @@
+// 获取 app 全局实例
+const app = getApp();
+console.log('全局实例例子', app.globalData);
+
 // pages/cart/cart.js
 Page({
 
@@ -10,7 +14,11 @@ Page({
     // 购物车集合
     cartList: {},
     // 全选状态
-    selectAllStatus: false
+    selectAllStatus: false,
+    // 总合计价格
+    totalPrice: 0,
+    // 总选中个数
+    accountCount: 0,
   },
   // 调用收货地址功能
   chooseAddress() {
@@ -208,6 +216,39 @@ Page({
 
   },
 
+  // 封装计算价格和个数的方法
+  setTotalPrice() {
+
+    const {
+      cartList
+    } = this.data;
+
+    // 合计总价格
+    let totalPrice = 0;
+    // 结算时选中商品个数
+    let accountCount = 0;
+    // 计算选中的商品的总价格
+
+    // 遍历购物车集合 value
+    Object.values(cartList).forEach(item => {
+      // 遍历数据中选中状态商品
+      if (item.selected) {
+        // 计算商品总价格
+        totalPrice += item.goods_price * item.count;
+        // 计算个数
+        accountCount++;
+      }
+    });
+
+    // 更新视图
+    this.setData({
+      totalPrice,
+      accountCount
+    })
+
+  },
+
+  // 更新购物车数据封装
   setCartListData(cartList) {
     // 更新界面
     this.setData({
@@ -216,6 +257,9 @@ Page({
 
     // 更新本地存储
     wx.setStorageSync('cartList', cartList);
+
+    // 在更新购物车数据的同时，也更新总价格和个数
+    this.setTotalPrice();
   },
 
   /**
@@ -233,6 +277,9 @@ Page({
       cartList,
       selectAllStatus,
     });
+
+    // 显示页面的时候，更新总价格
+    this.setTotalPrice();
   },
-  
+
 })
