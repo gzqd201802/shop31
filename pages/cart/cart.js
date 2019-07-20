@@ -5,12 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    address: {
-      userName: '',
-      telNumber: '',
-      addressInfo: ''
-    },
-    cartList: {}
+    // 收货地址
+    address: {},
+    // 购物车集合
+    cartList: {},
+    // 全选状态
+    selectAllStatus: false
   },
   // 调用收货地址功能
   chooseAddress() {
@@ -82,6 +82,7 @@ Page({
     });
   },
 
+  // 点击加减号修改数量
   countHandle(event) {
     // console.log("计数器事件触发");
     // 解构 id 和 num 数量
@@ -128,6 +129,85 @@ Page({
     }
 
   },
+
+  // countBlur 输入框失去焦点更新数据
+  countBlur(event) {
+    // 获取输入框的值
+    let {
+      value
+    } = event.detail;
+
+    // 获取当前点击商品 id 值
+    const {
+      id
+    } = event.currentTarget.dataset;
+
+    // 获取购物车数据
+    const {
+      cartList
+    } = this.data;
+
+    // 更新商品数量
+    cartList[id].count = +value;
+
+    // 更新购物车数据
+    this.setCartListData(cartList);
+
+  },
+
+  // 点击商品前选择按钮
+  changeItemSelect(event) {
+    // 获取当前商品 id
+    const {
+      id
+    } = event.currentTarget.dataset;
+
+    // 获取购物车数据
+    const {
+      cartList
+    } = this.data;
+
+    // 取反当前商品选择状态
+    cartList[id].selected = !cartList[id].selected;
+
+    // 遍历购物车集合，如果有一个商品选择状态为 false，最终结果为 false，全部 true，全选才为 true
+    const selectAllStatus = Object.values(cartList).every(item => item.selected);
+
+    // 更新全选状态
+    this.setData({
+      selectAllStatus
+    });
+    // 更新购物车数据
+    this.setCartListData(cartList);
+
+  },
+
+  // 全选按钮点击
+  changeAllSelect() {
+    // 解构购物车数据和全选状态
+    let {
+      cartList,
+      selectAllStatus
+    } = this.data;
+
+    // 全选状态点击就取反
+    selectAllStatus = !selectAllStatus;
+
+    // 遍历购物车数据，更新选中状态
+    Object.keys(cartList).forEach(id => {
+      cartList[id].selected = selectAllStatus;
+    });
+
+    // 更新全选状态
+    this.setData({
+      selectAllStatus
+    });
+
+    // 更新购物车数据
+    this.setCartListData(cartList);
+
+  },
+
   setCartListData(cartList) {
     // 更新界面
     this.setData({
@@ -137,55 +217,22 @@ Page({
     // 更新本地存储
     wx.setStorageSync('cartList', cartList);
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-
-  },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
+    let cartList = wx.getStorageSync('cartList') || {}
+
+    // 遍历集合，更新全选状态
+    const selectAllStatus = Object.values(cartList).every(item => item.selected);
+
     this.setData({
       address: wx.getStorageSync('address') || {},
-      cartList: wx.getStorageSync('cartList') || {},
-    })
+      cartList,
+      selectAllStatus,
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
+  
 })

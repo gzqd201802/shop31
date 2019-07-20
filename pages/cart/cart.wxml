@@ -29,7 +29,7 @@
     <block wx:for="{{ cartList }}" wx:key="goods_id">
       <view class="cart-item">
         <!-- 购物车商品左边 -->
-        <view class="cart-item-left">
+        <view class="cart-item-left" bindtap="changeItemSelect" data-id="{{ item.goods_id }}">
           <view class="iconfont {{ item.selected ? 'icon-xuanze-fill' : 'icon-xuanze' }}"> </view>
         </view>
         <!-- 购物车商品右边 -->
@@ -47,7 +47,7 @@
           <!-- 商品的计数器 -->
           <view class="count-grounp">
             <view catchtap="countHandle" data-id="{{ item.goods_id }}" data-num="{{ -1 }}" class="count-grounp-btn">-</view>
-            <input class="count-grounp-input" type="number" value="{{ item.count }}"></input>
+            <input catchblur="countBlur" data-id="{{ item.goods_id }}" class="count-grounp-input" type="number" value="{{ item.count }}"></input>
             <view catchtap="countHandle" data-id="{{ item.goods_id }}" data-num="{{ 1 }}" class="count-grounp-btn">+</view>
           </view>
         </view>
@@ -58,8 +58,8 @@
 <!-- 3.0 底部固定栏 -->
 
 <view class="total">
-  <view class="total-select">
-    <view class="total-select-icon iconfont icon-xuanze"></view> 全选
+  <view bindtap="changeAllSelect" class="total-select">
+    <view class="total-select-icon iconfont {{ selectAllStatus ? 'icon-xuanze-fill' : 'icon-xuanze'}}"></view> 全选
   </view>
   <view class="total-price">
     <view class="total-price-group">
