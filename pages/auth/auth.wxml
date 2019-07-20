@@ -1,0 +1,5 @@
+
+<!-- 按钮开放能力 -->
+<!-- open-type="getUserInfo"  可以用户获取用户信息 -->
+<!-- bindgetuserinfo="getUserInfo" 获取用户信息的事件 -->
+<button type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo">微信授权登录</button>
