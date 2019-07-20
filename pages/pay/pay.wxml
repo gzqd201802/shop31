@@ -1,0 +1,57 @@
+<!-- 1.0 选择收货地址 -->
+<view class="address" bindtap="chooseAddress">
+  <!-- 1.1 用户还没选择收货地址 - 显示一个按钮 -->
+  <view wx:if="{{ !address.userName }}" class="address-empty">
+    <button class="address-empty-button">新建收货地址 +</button>
+  </view>
+  <!-- 1.2 用户已经选择收货地址 -->
+  <view wx:else class="address-selected">
+    <view class="address-selected-head">
+      <text space="emsp">收货人：{{ address.userName }}    {{ address.telNumber }}</text>
+    </view>
+    <view class="address-selected-body">
+      <text space="emsp">收货地址：{{ address.addressInfo }}</text>
+    </view>
+  </view>
+</view>
+<!-- 直接调用分隔物盒子 -->
+<view class="divider"></view>
+<!-- 2.0 购物车列表 -->
+<view class="cart">
+  <!-- 2.1 自己完善购物车空状态 -->
+  <!-- 店铺标题 -->
+  <view class="cart-title">
+    <text class="cart-title-icon iconfont icon-dianpu"></text>
+    <text class="cart-title-name">优购生活馆</text>
+  </view>
+  <!-- 列表 -->
+  <view class="cart-list">
+    <!--  -->
+    <block wx:for="{{ cartList }}" wx:key="goods_id">
+      <view class="cart-item" wx:if="{{ item.selected }}">
+        <!-- 购物车商品右边 -->
+        <view class="cart-item-right">
+          <!-- 商品信息 - 和之前列表的布局一样 -->
+          <!-- 小程序自定义组件调用，父级传递数据给子级 -->
+          <goods-item item="{{ item }}" />
+          <!-- 商品的计数器 -->
+          <view class="count-grounp">
+            <view class="count-grounp-text">x {{ item.count }}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<!-- 3.0 底部固定栏 -->
+
+<view class="total">
+  <view class="total-price">
+    <view class="total-price-group">
+      合计:
+      <text class="total-price-number">￥{{ totalPrice }}</text>
+    </view>
+    <view class="total-price-tips">包含运费</view>
+  </view>
+  <view class="total-account" bindtap="goToPay">结算 {{ accountCount }} </view>
+</view>
