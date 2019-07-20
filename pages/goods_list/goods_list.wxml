@@ -15,12 +15,6 @@
 <view class="goods-list">
   <block wx:for="{{ goods }}" wx:key="goods_id">
     <!-- 2.0 跳转页面的第二种方式，通过触发事件跳转 -->
-    <view bindtap="goToDetail" data-id="{{ item.goods_id }}" class="goods-item">
-      <image src="{{ item.goods_small_logo || '/images/defalut.png' }}" class="goods-item-image"></image>
-      <view class="goods-item-info">
-        <view class="goods-item-info-title">{{ item.goods_name }}</view>
-        <view class="goods-item-info-price">￥{{ item.goods_price }}</view>
-      </view>
-    </view>
+    <goods-item item="{{ item }}" />
   </block>
 </view>
