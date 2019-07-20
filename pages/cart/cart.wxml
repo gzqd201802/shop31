@@ -18,6 +18,7 @@
 <view class="divider"></view>
 <!-- 2.0 购物车列表 -->
 <view class="cart">
+  <!-- 2.1 自己完善购物车空状态 -->
   <!-- 店铺标题 -->
   <view class="cart-title">
     <text class="cart-title-icon iconfont icon-dianpu"></text>
@@ -35,15 +36,8 @@
         <!-- 购物车商品右边 -->
         <view class="cart-item-right">
           <!-- 商品信息 - 和之前列表的布局一样 -->
-          <!-- bindtap 代表冒泡事件 -->
-          <!-- catchtap 代表非冒泡事件 -->
-          <view class="goods-item" catchtap="goToDetail" data-id="{{ item.goods_id }}">
-            <image src="{{ item.goods_small_logo || '/images/defalut.png' }}" class="goods-item-image"></image>
-            <view class="goods-item-info">
-              <view class="goods-item-info-title">{{ item.goods_name }}</view>
-              <view class="goods-item-info-price">￥{{ item.goods_price }}</view>
-            </view>
-          </view>
+          <!-- 小程序自定义组件调用，父级传递数据给子级 -->
+          <goods-item item="{{ item }}" />
           <!-- 商品的计数器 -->
           <view class="count-grounp">
             <view catchtap="countHandle" data-id="{{ item.goods_id }}" data-num="{{ -1 }}" class="count-grounp-btn">-</view>
@@ -68,5 +62,5 @@
     </view>
     <view class="total-price-tips">包含运费</view>
   </view>
-  <view class="total-account">结算 {{ accountCount }} </view>
+  <view class="total-account" bindtap="goToPay">结算 {{ accountCount }} </view>
 </view>

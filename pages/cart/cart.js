@@ -80,15 +80,7 @@ Page({
       }
     });
   },
-  // 点击跳转到详情页
-  goToDetail(event) {
-    const {
-      id
-    } = event.currentTarget.dataset;
-    wx.navigateTo({
-      url: '/pages/goods_detail/goods_detail?goods_id=' + id,
-    });
-  },
+  
 
   // 点击加减号修改数量
   countHandle(event) {
@@ -260,6 +252,34 @@ Page({
 
     // 在更新购物车数据的同时，也更新总价格和个数
     this.setTotalPrice();
+  },
+
+  // 点击结算按钮跳转到结算页面
+  goToPay() {
+    const {
+      address,
+      accountCount
+    } = this.data;
+    // 1. 判断收货地址是否为空
+    if (!address.userName) {
+      // 提示用户
+      wx.showToast({
+        title: '请选择收货地址',
+        icon: 'none'
+      });
+    } else if (accountCount === 0) {
+      // 2. 判断选中商品数量
+      // 提示用户
+      wx.showToast({
+        title: '你还没选择商品',
+        icon: 'none'
+      });
+    }else{
+      // 跳转到结算页面
+      wx.navigateTo({
+        url: '/pages/pay/pay',
+      });
+    }
   },
 
   /**

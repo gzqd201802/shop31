@@ -1,0 +1,9 @@
+<!-- bindtap 代表冒泡事件 -->
+<!-- catchtap 代表非冒泡事件 -->
+<view class="goods-item">
+  <image catchtap="goToDetail" data-id="{{ item.goods_id }}" src="{{ item.goods_small_logo || '/images/defalut.png' }}" class="goods-item-image"></image>
+  <view class="goods-item-info">
+    <view catchtap="goToDetail" data-id="{{ item.goods_id }}" class="goods-item-info-title">{{ item.goods_name }}</view>
+    <view class="goods-item-info-price">￥{{ item.goods_price }}</view>
+  </view>
+</view>
