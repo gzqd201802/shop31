@@ -94,7 +94,9 @@ Page({
     } = (await this.getOrderNumber(params));
     console.log(order_number, '1. 创建订单，获取订单编号');
     // 2. 根据订单编号，准备预支付
-    console.log("2. 根据订单编号，准备预支付");
+    const { pay } = await this.getPrePay(order_number);
+    console.log("2. 根据订单编号，准备预支付", pay);
+
     // 3. 根据预支付数据发起微信支付
     // 4. 微信支付成功后，查询订单，更新订单状态
 
@@ -107,6 +109,16 @@ Page({
       method: "POST",
       data: {
         ...params
+      }
+    })
+  },
+  // 2. 根据订单编号，准备预支付
+  getPrePay(order_number){
+    return request({
+      url:'my/orders/req_unifiedorder',
+      method:'POST',
+      data:{
+        order_number
       }
     })
   },
