@@ -177,7 +177,7 @@ Page({
   getOrderCheck(order_number) {
     return request({
       url: 'my/orders/chkOrder',
-      method: 'GET',
+      method: 'POST',
       data: {
         order_number
       }
