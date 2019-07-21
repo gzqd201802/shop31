@@ -102,6 +102,8 @@ Page({
     const res = await this.getRequestPayment(pay);
     console.log('3. 根据预支付数据发起微信支付', res);
     // 4. 微信支付成功后，查询订单，更新订单状态
+    const res2 = await this.getOrderCheck(order_number);
+    console.log('4. 微信支付成功后，查询订单，更新订单状态', res2)
 
   },
   // 1.创建订单，获取订单编号
@@ -139,6 +141,16 @@ Page({
         }
       });
     })
+  },
+  // 4. 微信支付成功后，查询订单，更新订单状态
+  getOrderCheck(order_number) {
+    return request({
+      url: 'my/orders/chkOrder',
+      method: 'GET',
+      data: {
+        order_number
+      }
+    });
   },
 
   /**
