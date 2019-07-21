@@ -94,10 +94,13 @@ Page({
     } = (await this.getOrderNumber(params));
     console.log(order_number, '1. 创建订单，获取订单编号');
     // 2. 根据订单编号，准备预支付
-    const { pay } = await this.getPrePay(order_number);
+    const {
+      pay
+    } = await this.getPrePay(order_number);
     console.log("2. 根据订单编号，准备预支付", pay);
-
-    // 3. 根据预支付数据发起微信支付
+    // 3. 根据预支付数据发起微信支付 - 微信支付在模拟器中是扫码，手机是弹起支付界面
+    const res = await this.getRequestPayment(pay);
+    console.log('3. 根据预支付数据发起微信支付', res);
     // 4. 微信支付成功后，查询订单，更新订单状态
 
   },
@@ -113,13 +116,28 @@ Page({
     })
   },
   // 2. 根据订单编号，准备预支付
-  getPrePay(order_number){
+  getPrePay(order_number) {
     return request({
-      url:'my/orders/req_unifiedorder',
-      method:'POST',
-      data:{
+      url: 'my/orders/req_unifiedorder',
+      method: 'POST',
+      data: {
         order_number
       }
+    })
+  },
+  // 3. 根据预支付数据发起微信支付
+  getRequestPayment(pay) {
+    // 把微信方法改造封装成 Promise 写法
+    return new Promise((resolve, reject) => {
+      wx.requestPayment({
+        ...pay,
+        success: (res) => {
+          resolve(res);
+        },
+        fail: (res) => {
+          reject(res);
+        }
+      });
     })
   },
 
