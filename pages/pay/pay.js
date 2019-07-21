@@ -124,8 +124,8 @@ Page({
       // 把新的购物车数据更新到本地存储
       wx.setStorageSync('cartList', cartList);
 
-      wx.switchTab({
-        url: '/pages/cart/cart',
+      wx.redirectTo({
+        url: '/pages/order/order?type=3',
       });
 
     } catch (err) {

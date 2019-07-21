@@ -19,9 +19,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    const {
+      type
+    } = options;
+    
+    this.setData({
+      activeIndex: type - 1
+    })
     // 调用请求订单的方法
-    this.getOrderData();
+    this.getOrderData(type);
   },
 
   getOrderData(type = 1) {
@@ -48,7 +54,7 @@ Page({
     this.setData({
       activeIndex: index
     });
-    
+
     this.getOrderData(index + 1);
   }
 })
