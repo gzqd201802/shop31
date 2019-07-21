@@ -111,6 +111,23 @@ Page({
         title: '支付成功',
       });
 
+      // 删除本地存储选中的商品的数据
+      // 获取 cartList 所有键名称，也就是 id
+      Object.keys(cartList)
+        // 过滤购物车数据中，选中状态商品的 id 值
+        .filter(id => cartList[id].selected)
+        // 遍历选中状态 id 值，从购物车数据中删除。
+        .forEach(id => {
+          delete cartList[id]
+        });
+
+      // 把新的购物车数据更新到本地存储
+      wx.setStorageSync('cartList', cartList);
+
+      wx.switchTab({
+        url: '/pages/cart/cart',
+      });
+
     } catch (err) {
       console.log('捕获报错信息', err);
       wx.showToast({
