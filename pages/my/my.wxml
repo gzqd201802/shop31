@@ -1,2 +1,19 @@
-<!--pages/my/my.wxml-->
-<text>pages/my/my.wxml</text>
+
+
+<open-data type="userNickName"></open-data>
+<!--  -->
+<!-- <web-view src="https://www.baidu.com"></web-view> -->
+
+<map 
+  id="map" 
+  longitude="{{ current.longitude }}" 
+  latitude="{{ current.latitude }}" 
+  scale="16" 
+  controls="{{controls}}" 
+  bindcontroltap="controltap" 
+  markers="{{markers}}" 
+  bindmarkertap="markertap" 
+  polyline="{{polyline}}" 
+  bindregionchange="regionchange" 
+  show-location
+></map>

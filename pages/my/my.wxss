@@ -1,1 +1,10 @@
 /* pages/my/my.wxss */
+map{
+  /* 小程序把屏幕水平方向分成 750 份，1rpx 就是 1 份  */
+  /* CSS3 新增 vw 单位，把水平方向分成了 100 份，1vw 就是一份宽度 */
+  /* vw  => viewport  width ，vw 相当于视口宽度   */
+  /* % 和 vw   % 是相对于父级元素 */
+  width: 100vw;
+  /* 占满 100 份 */
+  height: 100vh;
+}
