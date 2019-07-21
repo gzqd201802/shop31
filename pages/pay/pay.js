@@ -88,22 +88,36 @@ Page({
       "goods": goods
     }
 
-    // 1. 创建订单，获取订单编号
-    const {
-      order_number
-    } = (await this.getOrderNumber(params));
-    console.log(order_number, '1. 创建订单，获取订单编号');
-    // 2. 根据订单编号，准备预支付
-    const {
-      pay
-    } = await this.getPrePay(order_number);
-    console.log("2. 根据订单编号，准备预支付", pay);
-    // 3. 根据预支付数据发起微信支付 - 微信支付在模拟器中是扫码，手机是弹起支付界面
-    const res = await this.getRequestPayment(pay);
-    console.log('3. 根据预支付数据发起微信支付', res);
-    // 4. 微信支付成功后，查询订单，更新订单状态
-    const res2 = await this.getOrderCheck(order_number);
-    console.log('4. 微信支付成功后，查询订单，更新订单状态', res2)
+    try {
+      // 1. 创建订单，获取订单编号
+      const {
+        order_number
+      } = (await this.getOrderNumber(params));
+      console.log(order_number, '1. 创建订单，获取订单编号');
+      // 2. 根据订单编号，准备预支付
+      const {
+        pay
+      } = await this.getPrePay(order_number);
+      console.log("2. 根据订单编号，准备预支付", pay);
+      // 3. 根据预支付数据发起微信支付 - 微信支付在模拟器中是扫码，手机是弹起支付界面
+      const res = await this.getRequestPayment(pay);
+      console.log('3. 根据预支付数据发起微信支付', res);
+      // 4. 微信支付成功后，查询订单，更新订单状态
+      const res2 = await this.getOrderCheck(order_number);
+      console.log('4. 微信支付成功后，查询订单，更新订单状态', res2);
+
+      // try 如果走到最后，说明支付成功，提示用户
+      wx.showToast({
+        title: '支付成功',
+      });
+
+    } catch (err) {
+      console.log('捕获报错信息', err);
+      wx.showToast({
+        title: '支付失败',
+        icon: 'none'
+      });
+    }
 
   },
   // 1.创建订单，获取订单编号
