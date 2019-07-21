@@ -9,6 +9,28 @@ const request = (params) => {
   // 抽离项目基本路径
   const baseURL = "https://api.zbztb.cn/api/public/v1/";
 
+  // 判断 url 中是否包含了 my/ 路径，如果包含说明是私有路径
+  // 私有路径的特征，请求头带上 token 做用户校验
+  if (params.url.includes('my/')) {
+    // 获取 token 
+    const token = wx.getStorageSync('token');
+    if (token) {
+      // 在参数中添加请求头属性
+      params.header = {
+        ...params.header,
+        "Authorization": token
+      }
+    } else {
+      // 跳转到授权登录页面
+      console.log('没有 token 跳转到登录授权页');
+      wx.navigateTo({
+        url: '/pages/auth/auth',
+      });
+      // 没有授权就退出函数，需要返回 Promise 对象，防止外部 then 的时候报错。
+      return new Promise(() => {});
+    }
+
+  }
 
   // 1.0 在发送请求之前，先显示加载框
   wx.showLoading({

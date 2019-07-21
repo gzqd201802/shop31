@@ -52,20 +52,12 @@ Page({
     })
 
   },
-  
+
   // 需要实现微信支付
   async payHandle() {
 
     // 1. 先检验本地有没有 token，没有 token 就跳转到登录授权
-    const token = wx.getStorageSync('token');
-    if (!token) {
-      console.log('没有 token 跳转到登录授权页');
-      wx.navigateTo({
-        url: '/pages/auth/auth',
-      });
-      // 没有授权就退出函数
-      return;
-    }
+
 
     // 支付流程 - 要按顺序执行 - 如何从上往下执行 - 可以封装成方法，内部返回 Promise 对象
     const {
@@ -109,16 +101,10 @@ Page({
   },
   // 1.创建订单，获取订单编号
   getOrderNumber(params) {
-    // 获取 token 
-    const token = wx.getStorageSync('token');
     // 调用接口，需要带上 token
     return request({
       url: 'my/orders/create',
       method: "POST",
-      // 请求头带上 token
-      header: {
-        "Authorization": token
-      },
       data: {
         ...params
       }
